@@ -1,0 +1,14 @@
+.game {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .game h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+  }
+  
+  .game button {
+    margin-top: 15px;
+  }
+  

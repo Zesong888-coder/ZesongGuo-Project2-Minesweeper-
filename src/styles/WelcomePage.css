@@ -1,0 +1,28 @@
+.welcome {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .welcome h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+  
+  .welcome p {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+  }
+  
+  .welcome a {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 20px;
+    background-color: #0077cc;
+    color: #fff;
+    border-radius: 5px;
+  }
+  
+  .welcome a:hover {
+    background-color: #005fa3;
+  }
+  
