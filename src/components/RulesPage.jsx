@@ -1,4 +1,5 @@
 import '../styles/RulesPage.css'
+import { useNavigate } from 'react-router';
 
 function RulesPage() {
     const navigate = useNavigate(); // Initialize navigate for navigation
