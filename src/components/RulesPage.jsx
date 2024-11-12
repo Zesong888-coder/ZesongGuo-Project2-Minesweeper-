@@ -1,8 +1,11 @@
 import '../styles/RulesPage.css'
+import {useNavigate} from "react-router-dom";
+import { returnToHome } from "./GamePage.jsx";
 
 function RulesPage() {
     return (
       <div className="rules">
+        <button className="home-button" onClick={returnToHome}>Menu</button>
         <h2>Rules of Minesweeper</h2>
         <p>
           The objective is to reveal all safe cells without detonating any mines.
