@@ -1,5 +1,4 @@
-import '../styles/RulesPage.css';
-import { useNavigate } from 'react-router-dom';
+import '../styles/RulesPage.css'
 
 function RulesPage() {
     const navigate = useNavigate(); // Initialize navigate for navigation
@@ -23,8 +22,7 @@ function RulesPage() {
         </p>
       </div>
     );
-}
-
-export default RulesPage;
-
+  }
+  
+  export default RulesPage;
   
