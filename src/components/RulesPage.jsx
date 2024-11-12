@@ -1,8 +1,16 @@
-import '../styles/RulesPage.css'
+import '../styles/RulesPage.css';
+import { useNavigate } from 'react-router-dom';
 
 function RulesPage() {
+    const navigate = useNavigate(); // Initialize navigate for navigation
+
+    const returnToHome = () => {
+        navigate("/"); // Navigate to the home page
+    };
+
     return (
       <div className="rules">
+        <button className="home-button" onClick={returnToHome}>Menu</button>
         <h2>Rules of Minesweeper</h2>
         <p>
           The objective is to reveal all safe cells without detonating any mines.
@@ -15,7 +23,8 @@ function RulesPage() {
         </p>
       </div>
     );
-  }
-  
-  export default RulesPage;
+}
+
+export default RulesPage;
+
   
