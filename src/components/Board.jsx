@@ -28,54 +28,55 @@ function Board({ boardSize, numberOfMines }) {
   }, [boardSize, numberOfMines]);
 
   const initializeBoardWithMines = (tile) => {
-  // Generate mine positions avoiding the clicked tile
-  const minePositions = getMinePositionsAvoidingFirstClick(
-    boardSize.rows,
-    boardSize.cols,
-    numberOfMines,
-    tile
-  );
+    const minePositions = getMinePositionsAvoidingFirstClick(
+      boardSize.rows,
+      boardSize.cols,
+      numberOfMines,
+      tile
+    );
+  
+    // Create the new board with mines placed
+    const newBoard = createBoardFirstClick(
+      boardSize.rows,
+      boardSize.cols,
+      tile,
+      minePositions
+    );
+  
+    return newBoard; // Return the updated board
+  };  
 
-  // Create the new board with mines placed
-  const newBoard = createBoardFirstClick(
-    boardSize.rows,
-    boardSize.cols,
-    numberOfMines,
-    minePositions
-  );
-
-  // Reveal the first clicked tile
-  revealTile(newBoard, tile);
-  setBoard(newBoard); // Update the board state with mines placed
-  setFirstClick(false); // Update first click to prevent re-initialization
-};
-
-const handleTileClick = (tile) => {
-  if (gameStatus) return;
-
-  if (firstClick) {
-    // Handle the first click separately by initializing the board
-    initializeBoardWithMines(tile);
-  } else {
-    // For subsequent clicks, reveal the tile as usual
-    const updatedBoard = [...board];
+  const handleTileClick = (tile) => {
+    if (gameStatus) return;
+  
+    let updatedBoard;
+  
+    if (firstClick) {
+      // Initialize the board with mines and reveal the clicked tile
+      updatedBoard = initializeBoardWithMines(tile);
+      setFirstClick(false); // Ensure we only initialize the mines once
+    } else {
+      // Work with the current board on subsequent clicks
+      updatedBoard = [...board];
+    }
+  
+    // Reveal the clicked tile on the updated board
     revealTile(updatedBoard, tile);
-    setBoard(updatedBoard);
-  }
-
-  // Check for win or lose condition after revealing a tile
-  if (checkWin(board)) {
-    setGameStatus("You Win!");
-  } else if (checkLose(board)) {
-    const updatedBoard = [...board];
-    updatedBoard.flat().forEach((t) => {
-      if (t.mine) t.status = TILE_STATUSES.MINE;
-    });
-    setBoard(updatedBoard);
-    setGameStatus("You Lose!");
-  }
-};
-
+    setBoard(updatedBoard); // Update the board with the revealed tile
+  
+    // Check for win or lose condition after revealing a tile
+    if (checkWin(updatedBoard)) {
+      setGameStatus("You Win!");
+    } else if (checkLose(updatedBoard)) {
+      // Reveal all mines on the board when the player loses
+      updatedBoard.flat().forEach((t) => {
+        if (t.mine) t.status = TILE_STATUSES.MINE;
+      });
+      setBoard(updatedBoard);
+      setGameStatus("You Lose!");
+    }
+  };
+  
   
 
   const handleTileRightClick = (e, tile) => {

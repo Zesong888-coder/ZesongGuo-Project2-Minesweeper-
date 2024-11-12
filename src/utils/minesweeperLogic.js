@@ -46,20 +46,31 @@ export const TILE_STATUSES = {
     return board;
   }
 
-  export function createBoardFirstClick(rows, cols, numberOfMines, minePositions) {
+  export function createBoardFirstClick(rows, cols, firstTile, minePositions) {
     const board = [];
   
     for (let x = 0; x < rows; x++) {
       const row = [];
       for (let y = 0; y < cols; y++) {
-        const tile = {
-          x,
-          y,
-          mine: minePositions.some(position => position.x === x && position.y === y),
-          status: TILE_STATUSES.HIDDEN,
-          adjacentMines: 0,  // Store adjacent mine count
-        };
-        row.push(tile);
+        if (x === firstTile.x && y == firstTile.y) {
+          firstTile = {
+            x,
+            y,
+            mine: false,
+            status: TILE_STATUSES.HIDDEN,
+            adjacentMines: 0,  // Store adjacent mine count
+          };
+          row.push(firstTile);
+        } else {
+          const tile = {
+            x,
+            y,
+            mine: minePositions.some(position => position.x === x && position.y === y),
+            status: TILE_STATUSES.HIDDEN,
+            adjacentMines: 0,  // Store adjacent mine count
+          };
+          row.push(tile);
+        }
       }
       board.push(row);
     }

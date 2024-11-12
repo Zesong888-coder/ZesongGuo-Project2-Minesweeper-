@@ -3,13 +3,14 @@ import Board from './Board.jsx';
 import '../styles/GamePage.css';
 
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function GamePage() {
   const { difficulty } = useParams();
   const [boardSize, setBoardSize] = useState({ rows: 8, cols: 8 });
   const [numberOfMines, setNumberOfMines] = useState(10);
   const [boardKey, setBoardKey] = useState(0);
+  const navigate = useNavigate();
 
   const setDifficulty = (difficulty) => {
     switch (difficulty) {
@@ -40,10 +41,17 @@ function GamePage() {
     setBoardKey(prevKey => prevKey + 1);
   };
 
+  const returnToHome = () => {
+    navigate("/"); // Navigate back to the home page
+  };
+
   return (
     <div className="game-page">
       <h1>Minesweeper - {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Mode</h1>
-      <button className="reset-button" onClick={resetGame}>Reset Game</button>
+      <div className="menu-buttons">
+        <button className="reset-button" onClick={resetGame}>Reset Game</button>
+        <button className="home-button" onClick={returnToHome}>Menu</button>
+      </div>
       <Board 
         key={boardKey}
         boardSize={boardSize}
